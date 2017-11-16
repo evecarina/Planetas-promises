@@ -21,7 +21,6 @@ const Item = ({item, index}) =>{
 
 const App = ({items, query}) => 
 {
-  console.log("items", items.length);
   let list = "";
   if(items.length == 0)
     search();
