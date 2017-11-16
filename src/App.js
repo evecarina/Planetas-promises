@@ -1,37 +1,49 @@
 import React, { Component } from 'react';
+import logo from './logo.svg';
 import './App.css';
-import {connect} from 'redux-zero/react';
-import {searchList} from './actions'
-
-const App = ({items}) =>  {
+import {searchItem, search} from './actions';
+import { connect } from 'redux-zero/react';
+const Item = ({item, index}) =>{ 
   return (
-    <section>
-        <button onClick={() => searchList()}>Click</button>
-          <div>
-            {
-              items.length!=0 ? 
-              <img src={items[0].pl_img}/>             
-                :
-              <br/>
-            }
-            {            
-            items.length!=0 ? 
-             items[0].pl_name
-               :
-             <br/>
-            }  
-            { 
-             items.length!=0 ? 
-             items[0].pl_telescope
-               :
-             <br/>
-            } 
-          </div>        
-      </section>
-  );
+		<section key={index} className="items">
+      <div >
+				<img src={item.pl_img}/>
+			</div>
+			<div >
+				{item.pl_name}
+			</div>
+			<div>
+       {item.pl_telescope}
+			</div>
+		</section>
+	);
 }
 
-const mapToProps = ({items}) => ({items})
-export default  connect (mapToProps)(App);
+const App = ({items, query}) => 
+{
+  console.log("items", items.length);
+  let list = "";
+  if(items.length == 0)
+    search();
+  else
+  {
+    list = items.map((item, index) =>
+    {
+      console.log("item", item);
+      return <Item key={index} item = {item} index={index} />;
+    })
+  }
+    return (
+      <section align="center">
+        <div>
+          <ul>
+            {list}
+          </ul>
+        </div>
+      </section>
+    );
+  
+}
 
-
+const mapToProps = ({items, query}) => ({items, query});
+export default connect(mapToProps)(App);

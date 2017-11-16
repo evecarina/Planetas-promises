@@ -5,8 +5,6 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import store from './store';
 import {Provider} from 'redux-zero/react';
-
-
 const Index = () => {
     return (
         <Provider store={store}>
